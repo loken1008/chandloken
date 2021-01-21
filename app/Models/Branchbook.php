@@ -9,6 +9,7 @@ class Branchbook extends Model
 {
     use HasFactory;
     protected $table='hallbook';
-    protected $fillable=['branchname','hallname','date','start_time','end_time','reason','booked_by','status'];
+    protected $fillable=['branchname','hallname','date','start_time','end_time','reason','booked_by','status',];
+    protected $guarded = ['id', '_token'];
    
 }

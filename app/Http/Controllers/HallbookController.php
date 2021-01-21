@@ -25,19 +25,13 @@ class HallbookController extends Controller
             ->with('i', (request()->input('page', 1) - 1) *50); 
     
 }
-     // public function hall(){
+    // public function getStateList(Request $request)
+    //     {
+    //         $states = Hall::where("b_id",$request->b_id)->pluck("hallname","id");
+    //         return response()->json($states);
 
-     //    $data=Hall::all();
-       
-     //  return view('project.create',compact('data'));
-       //  $data=Hall::select('hall_name','id')->where('b_id',$request->id)->get();
-       
-       // //if our choosen id and hall table b_id col match get value
+    //     }
 
-
-       //  //$request->id here is the id of our  chosen id
-       //  return response()->json($data);//sent data into ajax success
-        // }
        
 
     
@@ -66,7 +60,7 @@ class HallbookController extends Controller
      
         $request->validate([
             'branchname' => 'required',
-          $hallname='hallname' => 'required',
+            'hallname' => 'required',
             'date' => 'required',
             'start_time'=> 'required',
             'end_time'=>'required',
@@ -74,11 +68,16 @@ class HallbookController extends Controller
             'booked_by'=>'required',
 
         ]);
-       
+        $user = Branchbook::where( 'hallname', $request->hallname )->first();
+   if ($user){
+      return redirect()->route('project.index')->with('success','Hall Booked Alredy');
+   }
+       else{
         Branchbook::create($request->all());
 
         return redirect()->route('project.index')
             ->with('success', 'Hall booked successfully.');   
+}
 }
     /**
      * Display the specified resource.
@@ -86,7 +85,7 @@ class HallbookController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Prject $project)
+    public function show(Project $project)
     {
        return view('project.show',compact('project'));
     }
@@ -95,11 +94,13 @@ class HallbookController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
+      * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        //
+        $hallbook=Branchbook::find($id);
+        return view('project.edit',compact('hallbook'));
     }
 
     /**
@@ -107,21 +108,40 @@ class HallbookController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
+
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'branchname' => 'required',
+            'hallname' => 'required',
+            'date' => 'required',
+            'start_time'=> 'required',
+            'end_time'=>'required',
+            'reason'=>'required',
+            'booked_by'=>'required',
+            'status'=>'',
+
+        ]);
+       
+        Branchbook::where('id',$id)->update($request->except(['_token', '_method']));
+
+        return redirect()->route('project.index')
+            ->with('success', 'Hall Update booked successfully.');   
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Project  $project
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        //
+        Branchbook::find($id)->delete();
+        return redirect()->route('project.index')
+            ->with('success', 'Deleted successfully');
+
     }
 }

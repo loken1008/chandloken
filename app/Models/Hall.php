@@ -12,8 +12,8 @@ class Hall extends Model
     protected $table='hall_tbl';
     protected $fillable=['hall_name'];
     protected $guarded = [];
-    public function subcategories(){
-        return $this->hasMany('App\Category', 'b_id');
+    public function states(){
+        return $this->hasMany('App\Branch', 'b_id');
     }
     
 }

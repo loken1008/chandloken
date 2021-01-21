@@ -1,8 +1,8 @@
 .form-horizontal{
-	margin:80px 0 0 120px;
+	margin:80px 0 0 520px;
 }
 .table{
-	margin:10px 0 0 250px;
+	margin:0 0 0 250px;
 	width:400px;
 } 
 th{
@@ -22,21 +22,22 @@ tr td:nth-child(even){
 }
 h2{
 	text-align: center;
-	padding:100px 0 0 700px;
+	padding:100px 0 0 300px;
 	color: #808080;
 	text-decoration:underline;
 }
 .pull-right{
-	margin:120px 40px 0 0;
+	margin:20px 40px 0 250px;
 }
 .pull-center{
-	margin:00px 0 0 280px;
+	margin:10px 0px 0 18px;
 }
 
 h1{
-	padding:0 0 0 500px;
+	padding:0 0 0 200px;
+	text-decoration:underline;
 }
 .form-group{
-	margin:30px 0 0 30;
-	color: black
+	margin:30px 0 0 30px;
+	color: black;
 }

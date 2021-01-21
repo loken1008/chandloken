@@ -24,4 +24,4 @@ Route::get('/', function () {
 Route::resource('project',HallbookController::class);
 
 // Route::post('hallbooking',[HallbookController::class,'store']);
-// Route::get('findhallname', [HallbookController::class, 'findhallname']);
+// Route::get('get-state-list',[HallBookController::class,'getStateList']);

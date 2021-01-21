@@ -28,6 +28,7 @@
                 <th scope="col">End Time</th>
                  <th scope="col">Booked Purpose</th>
                   <th scope="col">Booked By</th>
+                  <th scope="col">Action</th>
         </tr>
 
         @foreach ($hallbook as $book)
@@ -40,8 +41,18 @@
             <td>{{$book->end_time}}</td>
             <td>{{ $book->reason}}</td>
             <td>{{ $book->booked_by }}</td>
-            
-            
+            <td>
+                
+                <form action="{{ route('project.destroy', $book->id) }}" method="post">
+                    <a href="{{route('project.edit',$book->id)}}" title="">Edit</a>
+                    @method('DELETE')
+                 @csrf
+                 <button type="submit" title="delete" style="border: none; background-color:transparent;color:red">
+                           Delete
+
+                        </button>
+              </form>
+            </td>
         </tr>
         @endforeach
     </table>
